@@ -8,10 +8,12 @@ public class Village {
 	private Chef chef;
 	private Gaulois[] villageois;
 	private int nbVillageois = 0;
+	private Marche marche;
 
-	public Village(String nom, int nbVillageoisMaximum) {
+	public Village(String nom, int nbVillageoisMaximum, int nbEtals) {
 		this.nom = nom;
 		villageois = new Gaulois[nbVillageoisMaximum];
+		marche = new Marche(nbEtals);
 	}
 
 	public String getNom() {
@@ -71,7 +73,7 @@ public class Village {
 
 		private int trouverEtalLibre() {
 			for (int i = 0; i < etals.length; i++) {
-				if (etals[i].isEtalOccupe())
+				if (!etals[i].isEtalOccupe())
 					return i;
 			}
 			return -1;
@@ -117,5 +119,53 @@ public class Village {
 			return chaine.toString();
 		}
 	}
+
+	public String installerVendeur(Gaulois vendeur, String produit, int nbProduit) {
+		StringBuilder chaine = new StringBuilder();
+		chaine.append(vendeur.getNom() + " cherche un endroit pour vendre " + nbProduit + " " + produit + "\n");
+		int indiceEtal = marche.trouverEtalLibre();
+		marche.utiliserEtal(indiceEtal, vendeur, produit, nbProduit);
+		chaine.append("Le vendeur " + vendeur.getNom() + " vend des " + produit + " a l'etal n°" + indiceEtal + "\n");
+		return chaine.toString();
+	}
+
+public String rechercherVendeursProduit(String produit) {
+	StringBuilder chaine = new StringBuilder();
+	Etal[] etals = marche.trouverEtals(produit);
+	if(etals.length == 1) {
+		chaine.append(etals[0].getVendeur().getNom() + " vend des " + produit + " au marche.\n");
+	}
+	if (etals.length > 1) {
+		chaine.append("Les vendeurs qui proposent des " + produit + " sont :\n");
+		for (int i = 0; i < etals.length; i++) {
+			chaine.append("- " + etals[i].getVendeur().getNom()+"\n");
+		}
+	}
+	else {
+		chaine.append("Il n'y a pas de vendeur qui propose des " + produit + " au marche.\n");
+	}
+	return chaine.toString();
+}
+
+public Etal rechercherEtal(Gaulois vendeur) {
+	return marche.trouverVendeur(vendeur);
+}
+
+public String partirVendeur(Gaulois vendeur) {
+	return rechercherEtal(vendeur).libererEtal();
+}
+
+public String afficherMarche() {
+	return marche.afficherMarche();
+}
+
+
+
+
+
+
+
+
+
 
 }
