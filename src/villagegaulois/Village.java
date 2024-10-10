@@ -93,6 +93,7 @@ public class Village {
 			}
 			return produitEtals;
 		}
+
 		private Etal trouverVendeur(Gaulois gaulois) {
 			for (int i = 0; i < etals.length; i++) {
 				if (etals[i].getVendeur() == gaulois) {
@@ -101,8 +102,19 @@ public class Village {
 			}
 			return null;
 		}
+
 		private String afficherMarche() {
-			
+			int nbEtalVide = 0;
+			StringBuilder chaine = new StringBuilder();
+			for (int i = 0; i < etals.length; i++) {
+				if (etals[i].isEtalOccupe()) {
+					chaine.append(etals[i].afficherEtal());
+				} else {
+					nbEtalVide++;
+				}
+			}
+			chaine.append("Il reste " + nbEtalVide + " étals non utilisés dans le marché.\n");
+			return chaine.toString();
 		}
 	}
 
