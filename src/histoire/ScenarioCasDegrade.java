@@ -16,11 +16,12 @@ public class ScenarioCasDegrade {
 		Gaulois asterix = new Gaulois("Asterix", 10);
 		etal.occuperEtal(asterix, "x", 10);
 		try {
-			etal.acheterProduit(0, asterix);
+			etal.acheterProduit(0, null);
 		}
-		catch(NullPointerException e){
+		catch(NullPointerException | IllegalArgumentException e){
 			e.printStackTrace();
 		}
+		
 		System.out.println("Fin du test");
 	}
 
