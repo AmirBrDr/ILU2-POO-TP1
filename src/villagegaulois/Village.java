@@ -1,6 +1,6 @@
 package villagegaulois;
 
-import exceptions.ValeurNonInitialiseeException;
+import exceptions.VillageSansChefException;
 import personnages.Chef;
 import personnages.Gaulois;
 
@@ -45,9 +45,9 @@ public class Village {
 		return null;
 	}
 
-	public String afficherVillageois() throws ValeurNonInitialiseeException {
+	public String afficherVillageois() throws VillageSansChefException {
 		if(chef == null) {
-			throw new ValeurNonInitialiseeException("Il n'y a pas de chef");
+			throw new VillageSansChefException("Il n'y a pas de chef");
 		}
 		StringBuilder chaine = new StringBuilder();
 		if (nbVillageois < 1) {
@@ -129,7 +129,7 @@ public class Village {
 		chaine.append(vendeur.getNom() + " cherche un endroit pour vendre " + nbProduit + " " + produit + "\n");
 		int indiceEtal = marche.trouverEtalLibre();
 		marche.utiliserEtal(indiceEtal, vendeur, produit, nbProduit);
-		chaine.append("Le vendeur " + vendeur.getNom() + " vend des " + produit + " a l'etal n°" + indiceEtal + "\n");
+		chaine.append("Le vendeur " + vendeur.getNom() + " vend des " + produit + " a l'etal n°" + (indiceEtal+1) + "\n");
 		return chaine.toString();
 	}
 

@@ -1,6 +1,6 @@
 package histoire;
 
-import exceptions.ValeurNonInitialiseeException;
+import exceptions.VillageSansChefException;
 import personnages.Chef;
 import personnages.Druide;
 import personnages.Gaulois;
@@ -27,7 +27,7 @@ public class Scenario {
 		village.ajouterHabitant(abraracourcix);
 		try {
 			village.afficherVillageois();
-		} catch(ValeurNonInitialiseeException e) {
+		} catch(VillageSansChefException e) {
 			e.printStackTrace();
 		}
 
@@ -45,7 +45,7 @@ public class Scenario {
 			System.out.println(etalFleur.acheterProduit(15, obelix));
 			System.out.println(etalFleur.acheterProduit(15, assurancetourix));
 		
-		} catch(NullPointerException | IllegalArgumentException | IllegalStateException e) {
+		} catch(IllegalArgumentException | IllegalStateException e) {
 			e.printStackTrace();
 		}
 		System.out.println(village.partirVendeur(bonemine));
